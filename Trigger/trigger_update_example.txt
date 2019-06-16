@@ -1,0 +1,34 @@
+
+DROP TRIGGER BEFTN.TRIG_AMENDMENT;
+
+ 
+CREATE OR REPLACE TRIGGER BEFTN.TRIG_AMENDMENT
+   AFTER UPDATE OF ACTNUM
+   ON BEFTN.BEFTN_PROCESS_INFO
+   REFERENCING NEW AS NEW OLD AS OLD
+   FOR EACH ROW
+WHEN (
+OLD.ACTNUM <> NEW.ACTNUM
+      )
+BEGIN
+   IF UPDATING ('ACTNUM')
+   THEN
+      INSERT INTO BEFTN_AMENDMENT (ACTNUM,
+                                   ACTYPE,
+                                   ADDENDAINFORMATION,
+                                   ADDENDASEQNUM,
+                                   ADDENDATYPECODE,
+                                   ADRCOUNT,
+                                   ADRINDICATOR,
+                                   ADVICERT,
+                                   AMOUNT)
+
+           VALUES (:OLD.ACTNUM,
+                   :OLD.ACTYPE,
+                   :OLD.ADDENDAINFORMATION,
+                   :OLD.ADDENDASEQNUM,
+                   :OLD.ADDENDATYPECODE,
+                   :OLD.ADRCOUNT,
+                   :OLD.ADRINDICATOR,
+                   :OLD.ADVICERT,
+                   :OLD.AMOUNT)

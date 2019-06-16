@@ -1,0 +1,1 @@
+SELECT INSTR('New York', 'York', 1) FROM dual;

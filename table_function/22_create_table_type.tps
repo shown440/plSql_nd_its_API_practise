@@ -1,0 +1,1 @@
+CREATE TYPE t_table_emp_total IS TABLE OF t_emp_total;

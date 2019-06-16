@@ -1,0 +1,6 @@
+SELECT *
+  FROM STCODMAS
+ WHERE     EFFDAT IS NOT NULL
+       AND ROWNUM = (SELECT MIN (ROWNUM)
+                       FROM STCODMAS
+                      WHERE EFFDAT IS NOT NULL)
